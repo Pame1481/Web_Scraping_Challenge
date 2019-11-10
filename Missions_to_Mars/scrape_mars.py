@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import requests
 from splinter import Browser
 from splinter.exceptions import ElementDoesNotExist
+from selenium import webdriver
 import pandas as pd
 import time
 
@@ -42,12 +43,14 @@ def scrape():
     browser.visit(url1)
 
     time.sleep(1)
-
+    
     browser.click_link_by_partial_text('FULL IMAGE')
 
     time.sleep(1) 
 
-    browser.click_link_by_partial_text('more info')
+    browser.is_element_present_by_text('more info')
+    more_info = browser.find_link_by_partial_text('more info')
+    more_info.click()
 
     time.sleep(1)
 
@@ -55,7 +58,7 @@ def scrape():
     soup1 = BeautifulSoup(html, 'html.parser')
 
     large_img = soup1.select_one('figure.lede a img').get("src")
-    featured_image_url = f'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars{large_img}'
+    featured_image_url = f"https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars{large_img}"
 
     scraped_mars['featured_image_url'] = featured_image_url
 
@@ -79,7 +82,7 @@ def scrape():
     df = tables[0]
     Mars_df = df.rename(columns={0:"Planet Characteristics", 1: "Value"})
     Mars_df.set_index("Planet Characteristics", inplace=True)
-    Mars_Facts = Mars_df.to_html('Mars_table.html')
+    Mars_Facts = Mars_df.to_html(justify='left')
 
     scraped_mars['mars_facts'] = Mars_Facts
 

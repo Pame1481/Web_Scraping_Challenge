@@ -21,16 +21,20 @@
   <div class="container-fluid">
         <div class="col-md-12">
             <h2 class="heading"style="color:darkgoldenrod"><strong>LASTEST MARS NEWS</strong></h2>
-            <h4>{{mars.news_date}}</h4>
-            <h3>{{mars.news_title}}</h3>
+            <h5>{{mars.news_date}}</h5>
+            <h4><strong>{{mars.news_title}}</strong></h4>
             <p>{{mars.news_paragraph}}</p>
+            <br/>
+            <hr/>
         </div>
   </div> 
    <div class="container-fluid">
        <div class="row"> 
            <div class="col-md-8">
                 <h2 class="heading" style="color:darkgoldenrod"><strong>FEATURED MARS IMAGE</strong></h2>  
-                <img class="img-fluid" src="{{mars.featured_image_url}}" alt="Featured Image of Mars">
+                <a href={{mars.featured_image_url}}>
+                    <img src={{mars.featured_image_url}} class="img-thumbnail" alt="Featured Image of Mars" style="width:100%">
+                </a>
            </div>
            <div class="col-md-4">
                 <h3 style="color:darkgoldenrod"><strong>CURRENT WEATHER ON MARS</strong></h3> 
@@ -39,14 +43,13 @@
                 <hr/>
                 <br/>
                 <h3 style="color:darkgoldenrod"><strong>MARS FACTS</strong></h3>
-                <div class="table-responsive">
-                  <table class="table-striped table-bordered">
-                        {{mars.mars_facts}}
-                  </table>
+                {{mars.mars_facts | safe }}
                 </div>
             </div>
        </div>
    </div> 
+   <br/>
+   <hr/>
    <div class="container-fluid">
        <div class="row">
            <div class="col-md-12">
