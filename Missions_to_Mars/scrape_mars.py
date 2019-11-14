@@ -58,7 +58,8 @@ def scrape():
     soup1 = BeautifulSoup(html, 'html.parser')
 
     large_img = soup1.select_one('figure.lede a img').get("src")
-    featured_image_url = f"https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars{large_img}"
+    featured_image_url = f"https://www.jpl.nasa.gov{large_img}"
+    print(featured_image_url)
 
     scraped_mars['featured_image_url'] = featured_image_url
 
@@ -82,7 +83,7 @@ def scrape():
     df = tables[0]
     Mars_df = df.rename(columns={0:"Planet Characteristics", 1: "Value"})
     Mars_df.set_index("Planet Characteristics", inplace=True)
-    Mars_Facts = Mars_df.to_html(justify='left')
+    Mars_Facts = Mars_df.to_html(justify='center')
 
     scraped_mars['mars_facts'] = Mars_Facts
 
